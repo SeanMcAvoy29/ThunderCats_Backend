@@ -70,4 +70,23 @@ public class EmployeeDAO {
         }
 
     }
+
+    public Employee getEmployeeById(int id) throws SQLException{
+        Connection c = databaseConnector.getConnection();
+        Statement st = c.createStatement();
+
+        ResultSet rs = st.executeQuery("SELECT EmployeeID, Name, Salary, BankAccountNumber, NationalInsuranceNumber FROM `Employee` " +
+                "where EmployeeID ="+id);
+
+        while(rs.next()){
+            return new Employee(
+                    rs.getInt("EmployeeID"),
+                    rs.getString("Name"),
+                    rs.getDouble("Salary"),
+                    rs.getString("BankAccountNumber"),
+                    rs.getString("NationalInsuranceNumber")
+            );
+        }
+        return null;
+    }
 }
