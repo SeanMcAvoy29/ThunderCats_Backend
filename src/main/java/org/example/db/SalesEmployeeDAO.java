@@ -39,6 +39,30 @@ public class SalesEmployeeDAO {
         return salesEmployees;
     }
 
+    public SalesEmployee getSalesEmployeebyId(int id) throws SQLException {
+        Connection c = databaseConnector.getConnection();
+        Statement st = c.createStatement();
+
+        ResultSet rs = st.executeQuery("SELECT EmployeeID, Name, Salary, BankAccountNumber, NationalInsuranceNumber, CommissionRate " +
+                "FROM Employee " +
+                "JOIN SalesEmployee USING (EmployeeID) " +
+                "WHERE EmployeeID = " + id + " ;");
+
+
+        if (rs.next()) {
+            return new SalesEmployee(
+                    rs.getInt("EmployeeID"),
+                    rs.getString("Name"),
+                    rs.getDouble("Salary"),
+                    rs.getString("BankAccountNumber"),
+                    rs.getString("NationalInsuranceNumber"),
+                    rs.getDouble("CommissionRate")
+            );
+        }
+
+        return null;
+    }
+
     public int createSalesEmployee(SalesEmployeeRequest salesEmployeeRequest) throws SQLException {
         Connection c = databaseConnector.getConnection();
 

@@ -5,6 +5,7 @@ import org.example.cli.SalesEmployeeRequest;
 import org.example.client.FailedToCreateSalesEmployeeException;
 import org.example.client.FailedToGetSalesEmployeesException;
 import org.example.client.InvalidSalesEmployeeException;
+import org.example.client.SalesEmployeeDoesNotExistException;
 import org.example.core.SalesEmployeeValidator;
 import org.example.db.SalesEmployeeDAO;
 
@@ -27,6 +28,21 @@ public class SalesEmployeeService {
         }
 
         return salesEmployeesList;
+    }
+
+    public SalesEmployee getSalesEmployeeById(int id) throws FailedToGetSalesEmployeesException, SalesEmployeeDoesNotExistException {
+        try {
+            SalesEmployee salesEmployee = salesEmployeeDAO.getSalesEmployeebyId(id);
+
+            if (salesEmployee == null)
+                throw new SalesEmployeeDoesNotExistException();
+
+            return salesEmployee;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+
+            throw new FailedToGetSalesEmployeesException();
+        }
     }
 
     public int createSalesEmployee(SalesEmployeeRequest salesEmployeeRequest) throws FailedToCreateSalesEmployeeException, InvalidSalesEmployeeException {
