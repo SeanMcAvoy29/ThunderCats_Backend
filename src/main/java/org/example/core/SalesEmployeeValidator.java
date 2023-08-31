@@ -13,7 +13,7 @@ public class SalesEmployeeValidator {
             return validatedEmployee;
         }
 
-        if (salesEmployeeRequest.getCommissionRate() < 0 || salesEmployeeRequest.getCommissionRate() > 1 ){
+        if (salesEmployeeRequest.getCommissionRate() < 0 || salesEmployeeRequest.getCommissionRate() > 0.99 ){
             return "Commission rate not a percentage";
         }
 
