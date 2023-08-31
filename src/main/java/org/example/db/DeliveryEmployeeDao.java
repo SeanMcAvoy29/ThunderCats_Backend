@@ -29,5 +29,21 @@ public class DeliveryEmployeeDao {
         return employeeId;
     }
 
+    public void updateDeliveryEmployee(int id, EmployeeRequest employeeRequest) throws SQLException{
+        Connection c = databaseConnector.getConnection();
+
+        String updateStatement = "UPDATE `Employee` SET `Name` = ?, `Salary` = ?, `BankAccountNumber` = ?, `NationalInsuranceNumber` = ? WHERE EmployeeID = ?";
+
+        PreparedStatement st = c.prepareStatement(updateStatement);
+
+        st.setString(1, employeeRequest.getName());
+        st.setDouble(2, employeeRequest.getSalary());
+        st.setString(3, employeeRequest.getBankAccNum());
+        st.setString(4, employeeRequest.getNationalInsuranceNum());
+        st.setInt(5, id);
+
+        st.executeUpdate();
+    }
+
 
 }
