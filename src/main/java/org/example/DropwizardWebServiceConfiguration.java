@@ -13,7 +13,7 @@ public class DropwizardWebServiceConfiguration extends Configuration {
     @NotNull
     private final SwaggerBundleConfiguration swagger = new SwaggerBundleConfiguration();
 
-    @JsonProperty
+    @JsonProperty("swagger")
     public SwaggerBundleConfiguration getSwagger() {
         swagger.setResourcePackage("org.example.resources");
         String[] schemes = {"http", "https"};
