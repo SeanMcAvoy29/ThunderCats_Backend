@@ -59,4 +59,20 @@ public class DeliveryEmployeeController {
             return Response.serverError().build();
         }
     }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDeliveryEmployeeById(@PathParam("id")int id){
+        try{
+            return Response.ok(deliveryEmployeeService.getDeliveryEmployeeById(id)).build();
+        }catch(FailedToGetEmployeeException e){
+            System.err.println(e.getMessage());
+            return Response.serverError().build();
+        }catch (EmployeeDoesNotExistException e){
+            System.err.println(e.getMessage());
+
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
 }
