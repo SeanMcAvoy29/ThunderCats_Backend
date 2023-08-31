@@ -1,8 +1,11 @@
 package org.example.db;
 
+import org.example.cli.Employee;
 import org.example.cli.EmployeeRequest;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeliveryEmployeeDao {
 
@@ -43,6 +46,29 @@ public class DeliveryEmployeeDao {
         st.setInt(5, id);
 
         st.executeUpdate();
+    }
+
+    public List<Employee> getAllDeliveryEmployees() throws SQLException {
+        Connection c = databaseConnector.getConnection();
+        Statement st = c.createStatement();
+
+        ResultSet rs = st.executeQuery("SELECT Employee.EmployeeID, Name, Salary, BankAccountNumber, NationalInsuranceNumber FROM `Employee` RIGHT JOIN DeliveryEmployee on Employee.EmployeeID = DeliveryEmployee.EmployeeID");
+        List<Employee> deliveryEmployeeList = new ArrayList<>();
+
+        while (rs.next()){
+            Employee emp = new Employee(
+                    rs.getInt("EmployeeID"),
+                    rs.getString("Name"),
+                    rs.getDouble("Salary"),
+                    rs.getString("BankAccountNumber"),
+                    rs.getString("NationalInsuranceNumber")
+            );
+
+            deliveryEmployeeList.add(emp);
+        }
+
+        return deliveryEmployeeList;
+
     }
 
 

@@ -2,15 +2,13 @@ package org.example.api;
 
 import org.example.cli.Employee;
 import org.example.cli.EmployeeRequest;
-import org.example.client.EmployeeDoesNotExistException;
-import org.example.client.FailedToCreateDeliveryEmployeeException;
-import org.example.client.FailedToUpdateEmployeeException;
-import org.example.client.InvalidEmployeeException;
+import org.example.client.*;
 import org.example.core.EmployeeValidator;
 import org.example.db.DeliveryEmployeeDao;
 import org.example.db.EmployeeDAO;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class DeliveryEmployeeService {
 
@@ -58,6 +56,19 @@ public class DeliveryEmployeeService {
             System.err.println(e.getMessage());
 
             throw new FailedToUpdateEmployeeException();
+        }
+    }
+
+    public List<Employee> getAllDeliveryEmployees() throws FailedToGetEmployeeException {
+
+        try {
+            List<Employee> deliveryEmployeeList = employeeDAO.getEmployees();
+            return deliveryEmployeeList;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+
+            throw new FailedToGetEmployeeException();
         }
     }
 }
