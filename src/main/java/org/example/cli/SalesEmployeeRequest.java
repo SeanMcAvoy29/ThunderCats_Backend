@@ -3,17 +3,8 @@ package org.example.cli;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SalesEmployeeRequest {
-    private EmployeeRequest employeeRequest;
+public class SalesEmployeeRequest extends EmployeeRequest {
     private double commissionRate;
-
-    public EmployeeRequest getEmployeeRequest() {
-        return employeeRequest;
-    }
-
-    public void setEmployeeRequest(EmployeeRequest employeeRequest) {
-        this.employeeRequest = employeeRequest;
-    }
 
     public double getCommissionRate() {
         return commissionRate;
@@ -24,9 +15,12 @@ public class SalesEmployeeRequest {
     }
 
     @JsonCreator
-    public SalesEmployeeRequest(@JsonProperty("employeeRequest")EmployeeRequest employeeRequest,
+    public SalesEmployeeRequest(@JsonProperty("name") String name,
+                                @JsonProperty("salary") double salary,
+                                @JsonProperty("bankAccountNumber") String bankAccNum,
+                                @JsonProperty("nationalInsuranceNumber") String nationalInsuranceNum,
                                 @JsonProperty("commissionRate") double commissionRate) {
-        this.employeeRequest = employeeRequest;
+        super(name, salary, bankAccNum, nationalInsuranceNum);
         this.commissionRate = commissionRate;
     }
 }

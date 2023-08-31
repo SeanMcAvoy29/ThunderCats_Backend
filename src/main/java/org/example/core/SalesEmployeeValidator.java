@@ -1,5 +1,6 @@
 package org.example.core;
 
+import org.example.cli.EmployeeRequest;
 import org.example.cli.SalesEmployeeRequest;
 
 public class SalesEmployeeValidator {
@@ -7,7 +8,12 @@ public class SalesEmployeeValidator {
     private EmployeeValidator employeeValidator = new EmployeeValidator();
     public String isValidSalesEmployee(SalesEmployeeRequest salesEmployeeRequest) {
 
-        String validatedEmployee = employeeValidator.isValidEmployee(salesEmployeeRequest.getEmployeeRequest());
+        EmployeeRequest employeeRequest = new EmployeeRequest(salesEmployeeRequest.getName(),
+                salesEmployeeRequest.getSalary(),
+                salesEmployeeRequest.getBankAccNum(),
+                salesEmployeeRequest.getNationalInsuranceNum());
+
+        String validatedEmployee = employeeValidator.isValidEmployee(employeeRequest);
 
         if (validatedEmployee != null) {
             return validatedEmployee;

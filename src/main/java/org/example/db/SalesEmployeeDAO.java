@@ -1,5 +1,6 @@
 package org.example.db;
 
+import org.example.cli.EmployeeRequest;
 import org.example.cli.SalesEmployeeRequest;
 
 import java.sql.*;
@@ -12,7 +13,12 @@ public class SalesEmployeeDAO {
     public int createSalesEmployee(SalesEmployeeRequest salesEmployeeRequest) throws SQLException {
         Connection c = databaseConnector.getConnection();
 
-        int employeeId = employeeDAO.createEmployee(salesEmployeeRequest.getEmployeeRequest());
+        EmployeeRequest employeeRequest = new EmployeeRequest(salesEmployeeRequest.getName(),
+                salesEmployeeRequest.getSalary(),
+                salesEmployeeRequest.getBankAccNum(),
+                salesEmployeeRequest.getNationalInsuranceNum());
+
+        int employeeId = employeeDAO.createEmployee(employeeRequest);
 
         String insertStatement = "INSERT INTO SalesEmployee (EmployeeID,CommissionRate) VALUES (?,?);";
 
