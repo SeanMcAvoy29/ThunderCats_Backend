@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import org.example.api.DeliveryEmployeeService;
 import org.example.cli.EmployeeRequest;
 import org.example.client.FailedToCreateDeliveryEmployeeException;
+import org.example.client.InvalidEmployeeException;
 
 @Api("Delivery API")
 @Path("/employees")
@@ -25,6 +26,9 @@ public class DeliveryEmployeeController {
         }catch (FailedToCreateDeliveryEmployeeException e){
             System.err.println(e.getMessage());
             return Response.serverError().build();
+        }catch (InvalidEmployeeException e){
+            System.err.println(e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
 }
