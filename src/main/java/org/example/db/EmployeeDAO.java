@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAO {
-
     private final DatabaseConnector databaseConnector = new DatabaseConnector();
     public int createEmployee(EmployeeRequest employee) throws SQLException {
         Connection c = databaseConnector.getConnection();
