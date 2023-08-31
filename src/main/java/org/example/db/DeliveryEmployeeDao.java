@@ -25,13 +25,8 @@ public class DeliveryEmployeeDao {
         st.setInt(1, employeeId );
 
         st.executeUpdate();
-        ResultSet rs = st.getGeneratedKeys();
 
-        if(rs.next())
-            return rs.getInt(1);
-
-        return -1;
-
+        return employeeId;
     }
 
 
