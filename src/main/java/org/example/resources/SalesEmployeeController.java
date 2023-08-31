@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import org.example.api.SalesEmployeeService;
 import org.example.cli.SalesEmployeeRequest;
 import org.example.client.FailedToCreateSalesEmployeeException;
+import org.example.client.InvalidSalesEmployeeException;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -22,6 +23,10 @@ public class SalesEmployeeController {
     public Response createSalesEmployee(SalesEmployeeRequest salesEmployeeRequest) {
         try {
             return Response.ok(salesEmployeeService.createSalesEmployee(salesEmployeeRequest)).build();
+        } catch (InvalidSalesEmployeeException e) {
+            System.err.println(e.getMessage());
+
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         } catch (FailedToCreateSalesEmployeeException e) {
             System.err.println(e.getMessage());
 
