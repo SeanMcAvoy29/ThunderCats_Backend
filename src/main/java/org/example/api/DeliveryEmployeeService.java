@@ -71,4 +71,20 @@ public class DeliveryEmployeeService {
             throw new FailedToGetEmployeeException();
         }
     }
+
+    public Employee getDeliveryEmployeeById(int Id) throws FailedToGetEmployeeException, EmployeeDoesNotExistException {
+        try{
+
+            Employee deliveryEmployee = deliveryEmployeeDao.getEmployeeById(Id);
+
+            if (deliveryEmployee == null){
+                throw new EmployeeDoesNotExistException();
+            }
+
+            return deliveryEmployee;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            throw new FailedToGetEmployeeException();
+        }
+    }
 }
