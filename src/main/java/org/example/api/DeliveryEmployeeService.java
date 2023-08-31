@@ -62,7 +62,7 @@ public class DeliveryEmployeeService {
     public List<Employee> getAllDeliveryEmployees() throws FailedToGetEmployeeException {
 
         try {
-            List<Employee> deliveryEmployeeList = employeeDAO.getEmployees();
+            List<Employee> deliveryEmployeeList = deliveryEmployeeDao.getAllDeliveryEmployees();
             return deliveryEmployeeList;
 
         } catch (SQLException e) {
