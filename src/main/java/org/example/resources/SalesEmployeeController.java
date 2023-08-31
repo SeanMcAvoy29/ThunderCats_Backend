@@ -23,7 +23,7 @@ public class SalesEmployeeController {
     @GET
     @Path("/sales")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrders() {
+    public Response getSalesEmployees() {
         try {
             return Response.ok(salesEmployeeService.getAllSalesEmployee()).build();
         } catch (FailedToGetSalesEmployeesException e) {
